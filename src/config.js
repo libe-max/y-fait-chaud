@@ -5,12 +5,12 @@ module.exports = {
     url: '',
     description: '',
     image: '',
-    xiti_id: 'test'
+    xiti_id: 'fait-chaud'
   },
   tracking: {
     active: false,
-    format: 'libe-apps-template',
-    article: 'libe-apps-template'
+    format: 'fait-chaud',
+    article: 'fait-chaud'
   },
   statics_url: process.env.NODE_ENV === 'production'
     ? 'https://www.liberation.fr/apps/static'
@@ -18,5 +18,6 @@ module.exports = {
   api_url: process.env.NODE_ENV === 'production'
     ? 'https://libe-labo.site/api'
     : 'http://localhost:3004/api',
-  stylesheet: 'libe-apps-template.css' // The name of the css file hosted at ${statics_url}/styles/apps/
+  stylesheet: 'fait-chaud.css',
+  spreadsheet: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTATp3BeeWxgyb_Wj-eLN06Mfgqej3LxIGqb1gpfcmCbRp8pb3ht11-uX_oXiYNGH9K_jaGi70vLEHK/pub?gid=0&single=true&output=tsv'
 }
