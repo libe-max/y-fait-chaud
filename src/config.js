@@ -12,6 +12,7 @@ module.exports = {
     format: 'fait-chaud',
     article: 'fait-chaud'
   },
+  show_header: false,
   statics_url: process.env.NODE_ENV === 'production'
     ? 'https://www.liberation.fr/apps/static'
     : 'http://localhost:3003',
