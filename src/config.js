@@ -1,7 +1,7 @@
 module.exports = {
   meta: {
     author: '',
-    title: '',
+    title: 'Fait chaud ?',
     url: '',
     description: '',
     image: '',
