@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import chroma from 'chroma-js'
+import moment from 'moment'
+import 'moment/locale/fr'
+import Paragraph from 'libe-components/lib/text-levels/Paragraph'
 
 export default class ResultBar extends Component {
   /* * * * * * * * * * * * * * * * *
@@ -24,12 +27,16 @@ export default class ResultBar extends Component {
     const classes = [c]
 
     /* Inner logic */
-    const scale = chroma.scale(['white', 'red']).mode('lab')
+    const scale = chroma.scale(['#FCE2D7', '#E30613']).mode('lab')
     const color = scale(props.value).hex()
 
     /* Display component */
     return <div className={classes.join(' ')} style={{backgroundColor: color}}>
-      Chaud à {Math.round(props.value * 100) / 100} %
+      <div className={`${c}__tooltip`}>
+        <div className={`${c}__day`}><Paragraph>{moment(props.day, 'x').format('DD MMMM YYYY')}</Paragraph></div>
+        <div className={`${c}__value`}><Paragraph>{(props.label || ' ').replace(/\s/, ' ')} {Math.round(props.realValue * 100) / 10}</Paragraph></div>
+        <div className={`${c}__votes`}><Paragraph small>({props.votes} votants)</Paragraph></div>
+      </div>
     </div>
   }
 }

@@ -2,6 +2,7 @@
   "name": "libe-apps-template",
   "version": "0.2.2",
   "private": true,
+  "homepage": "/apps/2019/07/heatmap",
   "dependencies": {
     "chroma-js": "^2.0.4",
     "libe-components": "^0.7.0",

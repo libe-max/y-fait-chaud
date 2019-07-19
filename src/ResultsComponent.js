@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ResultBar from './ResultBar'
 import moment from 'moment'
+import BlockTitle from 'libe-components/lib/text-levels/BlockTitle'
 
 export default class ResultsComponent extends Component {
   /* * * * * * * * * * * * * * * * *
@@ -33,13 +34,14 @@ export default class ResultsComponent extends Component {
       : null
     if (!loBound || !hiBound) return <div className={classes.join(' ')} />
     
+    /* Assign score for every day */
     const daysSpan = hiBound.diff(loBound, 'days') + 1
     const daysTable = new Array(daysSpan).fill(0).map((e, i) => {
       const middayThatDay = moment(loBound.format('x'), 'x')
         .add(i, 'days')
         .startOf('day')
         .add(12, 'hours')
-      const dayData = props.data.find(day => day.day === middayThatDay.format('x')) || {
+      const dayData = props.data.find(day => moment(day.day, 'x').format('YYYYMMDD') === middayThatDay.format('YYYYMMDD')) || {
         day: middayThatDay.format('x'),
         votes: [0, 0, 0, 0]
       }
@@ -51,18 +53,51 @@ export default class ResultsComponent extends Component {
       score /= nbOfVotes || 1
       return {
         day: dayData.day,
-        score
+        score,
+        votes: nbOfVotes
       }
     })
 
+    /* Find min and max val (excl 0) */
+    const minVal = daysTable.length
+      ? Math.min(...daysTable.map(day => day.score).filter(s => s))
+      : null
+    const maxVal = daysTable.length
+      ? Math.max(...daysTable.map(day => day.score).filter(s => s))
+      : null
+
+    /* Re-assign score */
+    const temperedDaysTable = daysTable.map(day => {
+      return {
+        day: day.day,
+        score: (day.score - minVal) / (maxVal - minVal),
+        real_score: day.score,
+        votes: day.votes
+      }
+    })
+
+    const todayScore = temperedDaysTable.find(day => {
+      const thatDayDate = moment(day.day, 'x').format('YYYYMMDD')
+      const todayDate = moment().format('YYYYMMDD')
+      return thatDayDate === todayDate
+    }).real_score
+
     /* Display component */
-    return <div className={classes.join(' ')}>{
-      daysTable.map(day => {
-        return <ResultBar
-          key={day.day}
-          value={day.score}
-          day={day.day} />
-      })
-    }</div>
+    return <div className={classes.join(' ')}>
+      <div className={`${c}__bars`}>{
+        temperedDaysTable.map((day, i) => {
+          return <ResultBar
+            key={day.day}
+            value={day.score}
+            realValue={day.real_score}
+            votes={day.votes}
+            label={props.tooltip}
+            day={day.day} />
+        })}
+      </div>
+      <div className={`${c}__today`}>
+        <BlockTitle>{props.label} {Math.round(todayScore * 100) / 10}</BlockTitle>
+      </div>
+    </div>
   }
 }

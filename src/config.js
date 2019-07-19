@@ -1,16 +1,16 @@
 module.exports = {
   meta: {
     author: '',
-    title: 'Fait chaud ?',
-    url: '',
+    title: 'Heatmap',
+    url: 'https://www.liberation.fr/apps/2019/07/heatmap',
     description: '',
     image: '',
-    xiti_id: 'fait-chaud'
+    xiti_id: 'heatmap'
   },
   tracking: {
     active: false,
     format: 'fait-chaud',
-    article: 'fait-chaud'
+    article: 'heatmap'
   },
   show_header: false,
   statics_url: process.env.NODE_ENV === 'production'
