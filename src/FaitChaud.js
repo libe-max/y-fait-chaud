@@ -65,15 +65,13 @@ export default class FaitChaud extends Component {
    * * * * * * * * * * * * * * * * */
   fetchCredentials () {
     const api = this.props.api_url
-    console.log(api)
     window.fetch(api, {
       method: 'POST'
     }).then(r => r.json()).then(res => {
-      console.log(res)
       window.lblb_tracking = res._credentials.lblb_tracking
       window.lblb_posting = res._credentials.lblb_posting
     }).catch(e => {
-      console.log(e)
+      console.error(e)
     }) 
   }
 
@@ -112,7 +110,7 @@ export default class FaitChaud extends Component {
         sheetData: data,
       })
     }).catch(err => {
-      console.warn(err)
+      console.error(err)
       this.setState({
         loading_sheet: false,
         error: err.message

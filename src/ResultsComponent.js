@@ -29,9 +29,7 @@ export default class ResultsComponent extends Component {
     const loBound = props.data.length
       ? moment(Math.min(...props.data.map(day => parseInt(day.day, 10))), 'x')
       : null
-    const hiBound = props.data.length
-      ? moment(Math.max(...props.data.map(day => parseInt(day.day, 10))), 'x')
-      : null
+    const hiBound = moment()
     if (!loBound || !hiBound) return <div className={classes.join(' ')} />
     
     /* Assign score for every day */
