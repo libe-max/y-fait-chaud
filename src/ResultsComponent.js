@@ -29,7 +29,7 @@ export default class ResultsComponent extends Component {
     const loBound = props.data.length
       ? moment(Math.min(...props.data.map(day => parseInt(day.day, 10))), 'x')
       : null
-    const hiBound = moment()
+    const hiBound = moment().startOf('day').add(14, 'hours')
     if (!loBound || !hiBound) return <div className={classes.join(' ')} />
     
     /* Assign score for every day */
@@ -38,7 +38,7 @@ export default class ResultsComponent extends Component {
       const middayThatDay = moment(loBound.format('x'), 'x')
         .add(i, 'days')
         .startOf('day')
-        .add(12, 'hours')
+        .add(14, 'hours')
       const dayData = props.data.find(day => moment(day.day, 'x').format('YYYYMMDD') === middayThatDay.format('YYYYMMDD')) || {
         day: middayThatDay.format('x'),
         votes: [0, 0, 0, 0]

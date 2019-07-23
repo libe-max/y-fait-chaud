@@ -32,6 +32,7 @@ export default class ResultBar extends Component {
 
     /* Display component */
     return <div className={classes.join(' ')} style={{backgroundColor: color}}>
+      <div className={`${c}__date-label`}><Paragraph small>{moment(props.day, 'x').format('DD MMM')}</Paragraph></div>
       <div className={`${c}__tooltip`}>
         <div className={`${c}__day`}><Paragraph>{moment(props.day, 'x').format('DD MMMM YYYY')}</Paragraph></div>
         <div className={`${c}__value`}><Paragraph>{(props.label || ' ').replace(/\s/, ' ')} {Math.round(props.realValue * 100) / 10}</Paragraph></div>
